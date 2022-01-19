@@ -1,6 +1,9 @@
 package guru.springframework.sdjpaintro;
 
 import guru.springframework.sdjpaintro.domain.BookNatural;
+import guru.springframework.sdjpaintro.domain.composite.AuthorComposite;
+import guru.springframework.sdjpaintro.domain.composite.NameId;
+import guru.springframework.sdjpaintro.repositories.AuthorCompositeRepository;
 import guru.springframework.sdjpaintro.repositories.BookNaturalRepository;
 import guru.springframework.sdjpaintro.repositories.BookRepository;
 import org.junit.jupiter.api.Test;
@@ -17,6 +20,25 @@ class SdjpaIntroApplicationTests {
 
     @Autowired
     BookNaturalRepository bookNaturalRepository;
+
+    @Autowired
+    AuthorCompositeRepository authorCompositeRepository;
+
+    @Test
+    void authorCompositeTest() {
+        NameId nameId = new NameId("John", "T");
+        AuthorComposite authorComposite = new AuthorComposite();
+        authorComposite.setFirstName(nameId.getFirstName());
+        authorComposite.setLastName(nameId.getLastName());
+        authorComposite.setCountry("US");
+
+        AuthorComposite saved = authorCompositeRepository.save(authorComposite);
+        assertThat(saved).isNotNull();
+
+        AuthorComposite fetched = authorCompositeRepository.getById(nameId);
+        assertThat(fetched).isNotNull();
+    }
+
 
     @Test
     void testBookRepository() {
