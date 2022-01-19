@@ -14,7 +14,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 /**
  * Created by jt on 7/4/21.
  */
-@ActiveProfiles("local")
+//@ActiveProfiles("local")
 @DataJpaTest
 @ComponentScan(basePackages = {"guru.springframework.sdjpaintro.bootstrap"})
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)

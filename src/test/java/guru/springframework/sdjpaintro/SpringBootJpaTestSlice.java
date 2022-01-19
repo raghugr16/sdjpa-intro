@@ -1,7 +1,11 @@
 package guru.springframework.sdjpaintro;
 
+import guru.springframework.sdjpaintro.domain.AuthorUuid;
 import guru.springframework.sdjpaintro.domain.Book;
+import guru.springframework.sdjpaintro.domain.BookUuid;
+import guru.springframework.sdjpaintro.repositories.AuthorUuidRepository;
 import guru.springframework.sdjpaintro.repositories.BookRepository;
+import guru.springframework.sdjpaintro.repositories.BookUuidRepository;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -27,6 +31,12 @@ public class SpringBootJpaTestSlice {
     @Autowired
     BookRepository bookRepository;
 
+    @Autowired
+    BookUuidRepository bookUuidRepository;
+
+    @Autowired
+    AuthorUuidRepository authorUuidRepository;
+
     @Commit
     @Order(1)
     @Test
@@ -48,4 +58,31 @@ public class SpringBootJpaTestSlice {
         assertThat(countBefore).isEqualTo(3);
 
     }
+
+    @Order(3)
+    @Test
+    void testJpaTestSaveBookUuid(){
+        BookUuid bookUuid = new BookUuid();
+        bookUuid.setTitle("Title");
+        bookUuid.setIsbn("Isbn");
+        bookUuid.setPublisher("Publisher");
+
+        BookUuid savedBookUuid = bookUuidRepository.save(bookUuid);
+        System.out.println(savedBookUuid.getId());
+        assertThat(bookUuid).isNotNull();
+    }
+
+    @Order(4)
+    @Test
+    void testJpaTestSaveAuthorUuid(){
+        AuthorUuid authorUuid = new AuthorUuid();
+        authorUuid.setFirstName("Rwaghu");
+        authorUuid.setLastName("Ram");
+
+        AuthorUuid saveAuthorUuid = authorUuidRepository.save(authorUuid);
+        System.out.println(saveAuthorUuid.getId());
+        assertThat(saveAuthorUuid.getId()).isNotNull();
+    }
+
+
 }
